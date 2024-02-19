@@ -2,7 +2,9 @@
 
 backend for [Spotifriend](https://github.com/zanedb/spotifriend)
 
-## .env
+## setup
+
+create a `.env` file containing the following:
 
 ```
 TWILIO_ACCOUNT_SID=
@@ -24,7 +26,7 @@ if sms successfully sent, will return `200`. else corresponding error code and b
 
 ### POST `/auth/confirm`
 
-body must include `{"code":"123456"}`
+body must include `{"number":"+12345678910","code":"123456"}`
 
 if code is correct, will return `200` + body containing bearer token (i.e. `{"authorization":"..."}`). this token must be included on all future authorized requests.
 
@@ -35,7 +37,7 @@ must include authorization. if successful, will return user object:
 ```
 {
   "id": "1",
-  "username": "..",
+  "username": "att",
   "phone": "+12345678910",
   "name": "Atticus Fletcher"
 }
@@ -44,3 +46,14 @@ must include authorization. if successful, will return user object:
 ### POST `/users/me`
 
 must include authorization. include a body with one or both of `username`/`name` values. if successful, will return updated user object.
+
+### GET `/users/lookup?username=att`
+
+must include authorization. example response:
+
+```
+{
+  "isAvailable": false,
+  "username": "att"
+}
+```
