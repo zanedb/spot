@@ -12,7 +12,13 @@ TWILIO_AUTH_TOKEN=
 TWILIO_SERVICE_ID=
 DATABASE_URL=
 JWT_SECRET=
+FICTIONAL_NUMBER=
+FICTIONAL_CODE=
 ```
+
+## fictional numbers
+
+per the App Store review process, we'll need to include a fictional number + code combo. this can be defined in `.env` (E.164 format) and will bypass the twilio verify call.
 
 ## api spec
 

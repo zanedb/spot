@@ -5,6 +5,7 @@ import { isE164PhoneNumber } from '@/lib/validators'
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const serviceId = process.env.TWILIO_SERVICE_ID
+const fictionalNumber = process.env.FICTIONAL_NUMBER
 const client = require('twilio')(accountSid, authToken)
 
 export async function POST(request: NextRequest) {
@@ -13,6 +14,10 @@ export async function POST(request: NextRequest) {
   const number = body.number
   if (isEmpty(number) || !isE164PhoneNumber(number))
     return NextResponse.json({ error: 'invalid format' }, { status: 400 })
+
+  // Fictional number support
+  // Necessary for App Store review process
+  if (number === fictionalNumber) return NextResponse.json({}, { status: 200 })
 
   const lookup = await client.lookups.v2.phoneNumbers(number).fetch()
   if (!lookup.valid)
